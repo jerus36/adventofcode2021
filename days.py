@@ -1,11 +1,11 @@
 from day import Day
 from pandas import read_fwf
 
-def eval()
+
 class Day3(Day):
     def quiz1(self):
         half = self.data.size()/2
-        dfs = self.data.sum().apply()
+    
         
     def quiz2(self):
         pass
