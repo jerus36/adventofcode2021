@@ -1,20 +1,49 @@
 from day import Day
 from pandas import read_fwf
+import math
 
+def agg_mask(v):
+    return str(round(v.mean()))
+def agg2_mask(o,z):
+    if o>=z:
+        return 1
+    else:
+        return 0
+def compare_vals(df):
+        ones = df.sum()
+        zeros = df.count().sub(ones)
+        mask = ones.combine(zeros, agg2_mask )
+        return mask
 
 class Day3(Day):
     def quiz1(self):
-        half = self.data.size()/2
-    
+        return self.gamma * self.epsilon
         
     def quiz2(self):
-        pass
+        ser = self.gamma_series
+        df = self.data
+        cols = self.data.columns
+        res = "0b"
+        for i in range(5):
+            g = ser.iat[i]
+            c = cols[i]
+            df = df.query(f"{c}=={g}")
+            ser = compare_vals(df)
+            res = res + str(g)
+
+        return int(res, 2)
+
 
     def __init__(self, dfile):
         super().__init__(dfile)
         self.data = read_fwf(dfile,widths=[1,1,1,1,1])
+        self.data.columns = ['a','b','c','d','e']
         self.quizzes.append(self.quiz1)
         self.quizzes.append(self.quiz2)
+        self.gamma_series = compare_vals(self.data)
+        self.epsilon_series = self.gamma_series.apply(lambda x: str((int(x)+1)%2))
+        self.gamma = int(f'0b{"".join(self.gamma_series.to_list())}', 2)
+        self.epsilon = int(f'0b{"".join(self.epsilon_series.to_list())}', 2)
 
 class Day2(Day):
     def quiz1(self):
