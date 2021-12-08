@@ -1,6 +1,7 @@
 from day import Day
 from pandas import read_fwf
 
+
 def load_dater(f):
     return 
 class Day2(Day):
@@ -67,3 +68,5 @@ class Day1(Day):
         self.data = list(map(lambda x: int(x),f.readlines()))
         self.quizzes.append(self.quiz1)
         self.quizzes.append(self.quiz2)
+
+days = [Day1,Day2]
