@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from day1 import Day1
+from days import Day1
 
 parser = ArgumentParser()
 parser.add_argument("--day", type=int)
