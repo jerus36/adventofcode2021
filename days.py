@@ -1,9 +1,21 @@
 from day import Day
 from pandas import read_fwf
 
+def eval()
+class Day3(Day):
+    def quiz1(self):
+        half = self.data.size()/2
+        dfs = self.data.sum().apply()
+        
+    def quiz2(self):
+        pass
 
-def load_dater(f):
-    return 
+    def __init__(self, dfile):
+        super().__init__(dfile)
+        self.data = read_fwf(dfile,widths=[1,1,1,1,1])
+        self.quizzes.append(self.quiz1)
+        self.quizzes.append(self.quiz2)
+
 class Day2(Day):
     def quiz1(self):
         pos = 0
@@ -69,4 +81,4 @@ class Day1(Day):
         self.quizzes.append(self.quiz1)
         self.quizzes.append(self.quiz2)
 
-days = [Day1,Day2]
+days = [Day1,Day2,Day3]
