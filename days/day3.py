@@ -2,7 +2,7 @@ from .day import Day
 from pandas import read_fwf
 import math
 
-cols = ["a","b","c","d","e"]
+cols = []
 def compare_vals(df):
         ones = df.sum()
         zeros = df.count().sub(ones)
@@ -11,9 +11,15 @@ def compare_vals(df):
 def process(df, ix, fn):
     if len(df.index) == 1:
         return df
-    g = fn(compare_vals(df).iat[ix])
+    cmp = compare_vals(df)
+    g = fn(cmp.iat[ix])
     return process(df.query(f"{cols[ix]}=={g}"),ix+1,fn)
 
+def q2_co2(x):
+    if x>=0:
+        return 0
+    else:
+        return 1
 
 class Day3(Day):
     def quiz1(self):
@@ -28,14 +34,22 @@ class Day3(Day):
     def quiz2(self):
         o = "".join(process(self.data,0, lambda x: int(x>=0)).iloc[0].apply(lambda x: str(x)).to_list())
         o2 = int(f"0b{o}",2)
-        c = "".join(process(self.data,0, lambda x: int((x*-1)>=0)).iloc[0].apply(lambda x: str(x)).to_list())
+        cdf = process(self.data,0, q2_co2)
+        c = "".join(cdf.iloc[0].apply(lambda x: str(x)).to_list())
         co2 = int(f"0b{c}",2)
-        return co2
+
+        return co2 * o2
 
 
     def __init__(self, dfile):
         super().__init__(dfile)
-        self.data = read_fwf(dfile,widths=[1,1,1,1,1])
-        self.data.columns = cols
+        with open(dfile.name) as d:
+            ln = d.readline()
+        col_cnt = len(ln.strip())
+        widths = []
+        for i in range(col_cnt):
+            widths.append(1)
+            cols.append(F"c{i}")
+        self.data = read_fwf(dfile,widths=widths,names=cols)
         self.quizzes.append(self.quiz1)
         self.quizzes.append(self.quiz2)
