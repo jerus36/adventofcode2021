@@ -11,9 +11,8 @@ def compare_vals(df):
 def process(df, ix, fn):
     if len(df.index) == 1:
         return df
-    print(df)
     g = fn(compare_vals(df).iat[ix])
-    process(df.query(f"{cols[ix]}=={g}"),ix+1,fn)
+    return process(df.query(f"{cols[ix]}=={g}"),ix+1,fn)
 
 
 class Day3(Day):
@@ -27,10 +26,11 @@ class Day3(Day):
         return gamma * epsilon
         
     def quiz2(self):
-        df = process(self.data,0, lambda x: int(x>0))
-     
-        print(df)
-        return 11
+        o = "".join(process(self.data,0, lambda x: int(x>=0)).iloc[0].apply(lambda x: str(x)).to_list())
+        o2 = int(f"0b{o}",2)
+        c = "".join(process(self.data,0, lambda x: int((x*-1)>=0)).iloc[0].apply(lambda x: str(x)).to_list())
+        co2 = int(f"0b{c}",2)
+        return co2
 
 
     def __init__(self, dfile):
