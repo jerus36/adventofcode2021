@@ -5,4 +5,7 @@ class Day:
         self.dfile = dfile
 
     def execute(self,quiz):
-        return self.quizzes[quiz-1]()
+        if (quiz-1) < len(self.quizzes):
+            return self.quizzes[quiz-1]()
+        else:
+            return "No solution found"
