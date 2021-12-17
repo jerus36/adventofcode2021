@@ -4,4 +4,5 @@ from days.day2 import Day2
 from days.day3 import Day3
 from days.day4 import Day4
 from days.day5 import Day5
-days = [Day1,Day2,Day3, Day4,Day5]
+from days.day6 import Day6
+days = [Day1,Day2,Day3, Day4,Day5,Day6]

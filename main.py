@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from days import days
 
+
 parser = ArgumentParser()
 parser.add_argument("--day", type=int)
 parser.add_argument("--quiz", type=int)
