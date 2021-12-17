@@ -20,8 +20,6 @@ class Day1(Day):
             last = v
         return ret
         
-    def __init__(self, f):
-        super().__init__(f)
-        self.data = list(map(lambda x: int(x),f.readlines()))
-        self.quizzes.append(self.quiz1)
-        self.quizzes.append(self.quiz2)
+    def load(self):
+        self.data = list(map(lambda x: int(x),self.dfile.readlines()))
+        

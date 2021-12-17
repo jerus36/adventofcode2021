@@ -40,16 +40,13 @@ class Day3(Day):
 
         return co2 * o2
 
-
-    def __init__(self, dfile):
-        super().__init__(dfile)
-        with open(dfile.name) as d:
+    def load(self):
+        with open(self.dfile.name) as d:
             ln = d.readline()
         col_cnt = len(ln.strip())
         widths = []
         for i in range(col_cnt):
             widths.append(1)
             cols.append(F"c{i}")
-        self.data = read_fwf(dfile,widths=widths,names=cols)
-        self.quizzes.append(self.quiz1)
-        self.quizzes.append(self.quiz2)
+        self.data = read_fwf(self.dfile,widths=widths,names=cols)
+    

@@ -49,14 +49,6 @@ class Day5(Day):
 
         return len(ml)
     
-    def init_plot(self):
-        fig = plt.figure(clear=True)
-        ax = fig.add_subplot(111)
-        ax.set_aspect(1)
-        ax.set_xlim(0,10)
-        ax.set_ylim(0,10)
-        return ax
-    
     def load(self):
         lines = []
         for ln in self.dfile.readlines():
@@ -69,9 +61,3 @@ class Day5(Day):
             ortho = is_ortho(A,B)
             lines.append({'line':lins,'ortho':ortho})
         self.lines = lines
-
-    def __init__(self, dfile):
-        super().__init__(dfile)
-        self.load()
-        self.quizzes.append(self.quiz1)
-        self.quizzes.append(self.quiz2)

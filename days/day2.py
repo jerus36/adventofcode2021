@@ -30,9 +30,6 @@ class Day2(Day):
             else:
                 raise IOError("Unknown command")
         return pos * depth
-
-    def __init__(self, dfile):
-        super().__init__(dfile)
-        self.data = list(map(lambda x: (x.split()[0],int(x.split()[1])), dfile.readlines()))
-        self.quizzes.append(self.quiz1)
-        self.quizzes.append(self.quiz2)
+    def load(self):
+        self.data = list(map(lambda x: (x.split()[0],int(x.split()[1])), self.dfile.readlines()))
+    

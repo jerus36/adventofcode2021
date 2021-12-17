@@ -77,14 +77,10 @@ class Day4(Day):
     def quiz2(self):
         (ix,ball, total) = self.process_winners()[-1]
         return ball*total
-   
-    def __init__(self, dfile):
-        super().__init__(dfile)
-        b, *cs = dfile.read().split("\n\n")
+    def load(self):
+        b, *cs = self.dfile.read().split("\n\n")
         self.balls = list(map(lambda x: int(x), b.strip().split(",")))
         self.cards = []
         for c in cs:
             self.cards.append(list(map(lambda x: int(x), c.strip().split())))
-           
-        self.quizzes.append(self.quiz1)
-        self.quizzes.append(self.quiz2)
+    
