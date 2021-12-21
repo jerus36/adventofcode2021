@@ -1,6 +1,5 @@
 from .day import Day
-import sys
-from math import factorial
+
 def calc_distance(a,b,c):
     return (b-a)*c
 
