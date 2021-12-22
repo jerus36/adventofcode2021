@@ -28,54 +28,72 @@ def update(o,k):
             'freq': 1,
             'digits': mapping[str(len(k))] 
         }
-def calc_num(a):
-    mx = pow(10, len(a))
-    v = 0
-    for idx, m in enumerate(a):
-        dg = k_mapping.get(m,0)
-        if dg ==0:
-            print(m)
-        v = v + (dg * (mx - pow(10,idx)))
-    return v
+def calc_digits(disp_map, outputs):
+    ret = ""
+    for digit in ["".join(sorted(x)) for x in outputs]:
+        ret = ret + disp_map[digit]
+
+    return int(ret)
+
+def decode_segments(sigs):
+    disp_map=[0 for x in range(10)]
+    ret = {}
+    lt = []
+    rt = []
+
+    # build mapping
+    for i in sigs:
+        l = len(i)
+        match l:
+            case 2: disp_map[1] = set(i)
+            case 3: disp_map[7] = set(i)
+            case 4: disp_map[4] = set(i)
+            case 5: lt.append(set(i)) # could be a few 
+            case 6: rt.append(set(i)) # could be the other few (0, 6 or 9)
+            case 7: disp_map[8] = set(i)
+    for x in rt:
+        if disp_map[4].issubset(set(x)):
+            disp_map[9] = set(x)
+        elif disp_map[7].issubset(set(x)):
+            disp_map[0] = set(x)
+        else:
+            disp_map[6] = set(x)
+    for y in lt:
+        if disp_map[7].issubset(set(y)):
+            disp_map[3] = set(y)
+        elif len(set(y).intersection(disp_map[4])) == 3:
+            disp_map[5] = set(y)
+        else:
+            disp_map[2] = set(y)
+    for idx,s in enumerate(disp_map):
+        k = "".join(sorted(s))
+        ret[k] = str(idx)
+  
+    return ret,disp_map
 
 class Day8(Day):
     def quiz1(self):
+        ret = 0
         ks = [1,4,7,8]
-        return sum([self.ofreq[x] for x in ks])
+        for l in [len(x[1]) for x in self.data]:
+            if l in ks:
+                ret = ret + 1
+        return ret
+
     def quiz2(self):
-        for dg in self.digits:
-            v = calc_num(dg)
-            print(v)
-        print()
+        ret = 0
+        for sigs,outputs in self.data:
+            disp_map,set_map = decode_segments(sigs)
+            ret = ret + calc_digits(disp_map, outputs)
+        return ret
 
     def load(self):
-        input = {}
-        output = {}
-        ofreq = [0 for x in range(10)]
-        ifreq = [0 for x in range(10)]
-        digits = []
-        # normalize the mapping
-        
-        for line in self.dfile.readlines():
-            left,right = [x.strip() for x in line.split("|")]
-            for l in left.split():
-                k = "".join(sorted(l))
-                ix = mapping.get(str(len(k)), -1)
-                if ix >= 0:
-                    ifreq[ix] = ifreq[ix] + 1
-                # update(input,k)
-            dg = []
-            for r in right.split():
-                k = "".join(sorted(r))
-                dg.append(k)
-                ix = mapping.get(str(len(k)), -1)
-                if ix >= 0:
-                    ofreq[ix] = ofreq[ix] + 1
-                # update(output,k)
-            digits.append(dg)   
+        self.data = []
+        for i,o in [x.split('|') for x in self.dfile]:
+           i = i.split()
+           o = o.split()
+           self.data.append((i,o))
 
-        self.ifreq = ifreq
-        self.ofreq = ofreq
-        self.digits = digits
+        
             
            
