@@ -35,12 +35,19 @@ class Day9(Day):
             score = score + calculate_score(r,fn)
         return score
     def load(self):
-        d1 = DataFrame([list(map(int,list(r.strip()))) for r in self.dfile])
-        rows, cols = d1.shape
-        d1.insert(cols,cols+1,[9 for x in range(rows)])
-        d1.insert(0,-1,[9 for x in range(rows)])
+        d = []
+        for idx, row in enumerate(self.dfile):
+            nrow = [9]
+            nrow.extend(map(int,list(row.strip())))
+            nrow.append(9)
 
-        print(d1)
-        mtx = [[9 for x in range(cols+2)] for y in range(rows+2)]
-        
+            if idx == 0:
+                border = [9 for x in range(len(nrow))]
+                d.append(border)
+
+            d.append(nrow)
+        d.append(border)
+
+        self.data = DataFrame(d)
+        print(self.data)
 
