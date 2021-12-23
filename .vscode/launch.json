@@ -1,0 +1,54 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","3","--quiz","2","--file","data/day3_sample.txt"]
+        },
+        {
+            "name": "Day 4, Quiz 1",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","4","--quiz","1","--file","data/day4.txt"]
+        },
+        {
+            "name": "Day 4, Quiz 2",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","4","--quiz","2","--file","data/day4.txt"]
+        },
+        {
+            "name": "Day 5, Quiz 1",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","5","--quiz","1","--file","data/day5_sample.txt"]
+        }
+        ,
+        {
+            "name": "Day 8, Quiz 2",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","8","--quiz","2","--file","data/day8_sample.txt"]
+        },
+        {
+            "name": "Day 9, Quiz 1",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ["--day","9","--quiz","1","--file","data/day9_sample.txt"]
+        }
+    ]
+}
